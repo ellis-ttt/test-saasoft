@@ -10,10 +10,12 @@ const emit = defineEmits<{
 	(e: 'change'): void
 }>()
 
-function onChange(event: Event) {
-	const target = event.target as HTMLSelectElement
-	emit('update:modelValue', target.value)
-	emit('change')
+function onChange(e: Event) {
+	const target = e.target as HTMLSelectElement | null
+	if (target) {
+		emit('update:modelValue', target.value)
+		emit('change')
+	}
 }
 </script>
 

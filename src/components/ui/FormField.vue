@@ -1,4 +1,7 @@
-<script lang="ts" setup>
+<script
+	lang = "ts"
+	setup
+>
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -20,26 +23,32 @@ const emit = defineEmits<{
 
 const inputType = computed(() => props.type || 'text')
 
-function onInput(event: Event) {
-	const target = event.target as HTMLInputElement
-	emit('update:modelValue', target.value)
-	emit('input')
+function onInput(e: Event) {
+	const target = e.target as HTMLInputElement | null
+	if (target) {
+		emit('update:modelValue', target.value)
+		emit('input')
+	}
 }
-</script>
+</script >
 
-<template>
-	<div>
-		<label class="form-label">{{ label }}</label>
+<template >
+	<div >
+		<label class = "form-label">{{ label }}</label >
 		<input
-			:class="['form-control', { 'is-invalid': invalid }]"
-			:maxlength="maxlength"
-			:minlength="minlength"
-			:type="inputType"
-			:value="modelValue"
-			v-bind="inputAttrs"
-			@blur="emit('blur')"
-			@input="onInput"
+			:class = "['form-control', { 'is-invalid': invalid }]"
+			:maxlength = "maxlength"
+			:minlength = "minlength"
+			:type = "inputType"
+			:value = "modelValue"
+			v-bind = "inputAttrs"
+			@blur = "emit('blur')"
+			@input = "onInput"
 		/>
-		<div v-if="invalid && errorText" class="invalid-feedback">{{ errorText }}</div>
-	</div>
-</template>
+		<div
+			v-if = "invalid && errorText"
+			class = "invalid-feedback"
+		>{{ errorText }}
+		</div >
+	</div >
+</template >
