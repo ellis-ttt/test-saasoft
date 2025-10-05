@@ -19,6 +19,12 @@ const emit = defineEmits<{
 }>()
 
 const inputType = computed(() => props.type || 'text')
+
+function onInput(event: Event) {
+	const target = event.target as HTMLInputElement
+	emit('update:modelValue', target.value)
+	emit('input')
+}
 </script>
 
 <template>
@@ -32,10 +38,7 @@ const inputType = computed(() => props.type || 'text')
 			:value="modelValue"
 			v-bind="inputAttrs"
 			@blur="emit('blur')"
-			@input="
-				emit('update:modelValue', ($event.target as HTMLInputElement).value)
-				emit('input')
-			"
+			@input="onInput"
 		/>
 		<div v-if="invalid && errorText" class="invalid-feedback">{{ errorText }}</div>
 	</div>

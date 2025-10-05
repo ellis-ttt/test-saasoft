@@ -9,6 +9,12 @@ const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
 	(e: 'change'): void
 }>()
+
+function onChange(event: Event) {
+	const target = event.target as HTMLSelectElement
+	emit('update:modelValue', target.value)
+	emit('change')
+}
 </script>
 
 <template>
@@ -17,10 +23,7 @@ const emit = defineEmits<{
 		<select
 			:value="modelValue"
 			class="form-select"
-			@change="
-				emit('update:modelValue', ($event.target as HTMLSelectElement).value)
-				emit('change')
-			"
+			@change="onChange"
 		>
 			<option v-for="opt in options" :key="opt.value" :value="opt.value">
 				{{ opt.text }}
